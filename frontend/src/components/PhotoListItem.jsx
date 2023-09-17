@@ -1,21 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "../styles/PhotoListItem.scss";
+import "../styles/PhotoDetailsModal.scss"
+import PhotoFavButton from "./PhotoFavButton";
 
+const PhotoListItem = (props) => {
+  const {
+    city,
+    country,
+    regular,
+    name,
+    profile,
+    username,
+    id,
+    onClick,
+    photoClick,
+  } = props;
+//() => photoClick(regular, id, name, profile, city, country)
+//`photo-list__item ${isClicked ? "photo-details-modal__images" : ""}`
+  const [isClicked, setIsClicked] = useState(false);
 
-const sampleDataForPhotoListItem = {
-  id: "1",
-  location: {
-    city: "Montreal",
-    country: "Canada",
-  },
-  imageSource: `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`,
-  username: "Joe Example",
-  profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
-};
+  const handleImageClick = () => {
+    setIsClicked(true);
+    photoClick(regular, id, name, profile, city, country);
+  };
 
-const PhotoListItem = () => {
-  /* Insert React */
+  return (
+    <div className="photo-list__item">
+      <PhotoFavButton selected={props.isFavorite} onClick={onClick} />
+      <img
+        src={regular}
+        alt="image"
+        className="photo-list__image"
+        onClick={handleImageClick}
+      />
+      <div className="photo-list__user-details">
+        <img
+          src={profile}
+          alt="profile-picture"
+          className="photo-list__user-profile"
+        />
+        <div className="photo-list__user-info">
+          {name}
+          <div className="photo-list__user-location">
+            {city},{country}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PhotoListItem;
