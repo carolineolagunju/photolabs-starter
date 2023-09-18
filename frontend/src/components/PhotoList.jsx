@@ -3,32 +3,23 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  // const handleAddFav = (id) => {
-  //   props.addFavorite(id);
-  // };
-
-  const photoData = props.photos.map((photo) => {
-  
-    const isFavorite = props.isFavorite(photo.id);
-
-    return (
-      <PhotoListItem
-        key={photo.id}
-        id={photo.id}
-        city={photo.location.city}
-        country={photo.location.country}
-        regular={photo.urls.regular}
-        name={photo.user.name}
-        profile={photo.user.profile}
-        isFavorite={isFavorite}
-        addFavorite={props.addFavorite}
-        onClick={() => props.onClick(photo.id)}
-        photoClick={props.photoClick}
-      />
-    );
-  });
-
-  return <ul className="photo-list">{photoData}</ul>;
+  return (
+    <ul className="photo-list">
+      {/* loop through photos array and render some properties */}
+      {props.photos.map((photo) => {
+        return (
+          <PhotoListItem
+            key={photo.id}
+            photo={photo}
+            imageSource={photo.urls.regular}
+            toggleFavorite={props.toggleFavorite}
+            favorites={props.favorites}
+            onPhotoClick={props.onPhotoClick}
+          />
+        );
+      })}
+    </ul>
+  );
 };
 
 export default PhotoList;
