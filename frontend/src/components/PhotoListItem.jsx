@@ -1,49 +1,37 @@
-import React, {useState} from "react";
+import React from "react";
 
 import "../styles/PhotoListItem.scss";
-import "../styles/PhotoDetailsModal.scss"
+import "../styles/PhotoDetailsModal.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
+
+//renders list of photos
 const PhotoListItem = (props) => {
-  const {
-    city,
-    country,
-    regular,
-    name,
-    profile,
-    username,
-    id,
-    onClick,
-    photoClick,
-  } = props;
-//() => photoClick(regular, id, name, profile, city, country)
-//`photo-list__item ${isClicked ? "photo-details-modal__images" : ""}`
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleImageClick = () => {
-    setIsClicked(true);
-    photoClick(regular, id, name, profile, city, country);
-  };
-
   return (
     <div className="photo-list__item">
-      <PhotoFavButton selected={props.isFavorite} onClick={onClick} />
-      <img
-        src={regular}
-        alt="image"
-        className="photo-list__image"
-        onClick={handleImageClick}
-      />
+      <div>
+        <PhotoFavButton
+          toggleFavorite={props.toggleFavorite}
+          id={props.photo.id}
+          favorites={props.favorites}
+        />
+        <img
+          src={props.imageSource}
+          alt="image"
+          className="photo-list__image"
+          onClick={() => props.onPhotoClick(props.photo.id)}
+        />
+      </div>
       <div className="photo-list__user-details">
         <img
-          src={profile}
+          src={props.photo.user.profile}
           alt="profile-picture"
           className="photo-list__user-profile"
         />
         <div className="photo-list__user-info">
-          {name}
+          {props.photo.user.name}
           <div className="photo-list__user-location">
-            {city},{country}
+            {props.photo.location.city},{props.photo.location.country}
           </div>
         </div>
       </div>
