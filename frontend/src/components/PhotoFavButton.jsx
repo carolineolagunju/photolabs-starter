@@ -5,7 +5,7 @@ import "../styles/PhotoFavButton.scss";
 function PhotoFavButton(props) {
   const onToggleFavoriteClick = () => {
     props.toggleFavorite(props.id);
-  }
+  };
   //setting selected to true if the photo id exists in the favorites array
   const selected = props.favorites.includes(props.id);
   return (

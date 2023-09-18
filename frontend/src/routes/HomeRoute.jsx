@@ -10,7 +10,7 @@ const HomeRoute = ({
   toggleFavorite,
   favorites,
 }) => {
-  //return TopNavigation to render
+  //displays top navigation and list of photos
   return (
     <div className="home-route">
       <TopNavigation topics={topics} isFavPhotoExist={favorites.length > 0} />
