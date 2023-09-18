@@ -4,54 +4,78 @@ import HomeRoute from "routes/HomeRoute";
 import photos from "./mocks/photos";
 import topics from "./mocks/topics";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
-import PhotoList from "components/PhotoList";
+import useApplicationData from "hooks/useApplicationData";
+
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  //set state for modal to false as its default state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [displayPicture, setDisplayPicture] = useState(null);
-
-  const [favorites, setFavorites] = useState([]);
-  const addFavorite = (id) => {
-    //if id in arr, remove, else add
-    if (favorites.includes(id)) {
-      return setFavorites(favorites.filter((photoId) => photoId !== id));
-    }
-    //add the photo id to the array
-    setFavorites([...favorites, id]);
-  };
-
-  const isFavorite = (id) => {
-    //return true if id is in the array
-    return favorites.includes(id);
-  };
-
-  const handleAddFav = (id) => {
-    addFavorite(id);
-  };
-
-  //function to open modal when photo is clicked
-  const photoClick = (photo, id, name, profile, city, country) => {
-    setIsModalOpen(true);
-    setDisplayPicture({photo, id, name, profile, city, country});
-
-  };
-
   
-  //function to close modal when x is clicked
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    const {
+      // isModalOpen,
+      // photoSelected,
+      // favorites,
+      state,
+      toggleFavorite,
+      onPhotoClick,
+      closeModal,
+    } = useApplicationData();
+
+
+  const {isModalOpen, photoSelected, favorites} = state;
  
   return (
     <div className="App">
-      <HomeRoute photos={photos} topics={topics} photoClick={photoClick} isFavorite={isFavorite} addFavorite={addFavorite} favorites={favorites} handleAddFav={handleAddFav}/>
+      <HomeRoute photos={photos} topics={topics} onPhotoClick={onPhotoClick}  favorites={favorites} toggleFavorite={toggleFavorite}/>
       {isModalOpen && (
-        <PhotoDetailsModal closeModal={closeModal} photo={displayPicture} photoList={photos} isFavorite={isFavorite} addFavorite={addFavorite} onClick={handleAddFav}/>
+        <PhotoDetailsModal closeModal={closeModal} photoSelected={photoSelected}  toggleFavorite={toggleFavorite} favorites={favorites}/>
       )}
     </div>
   );
 };
 
 export default App;
+
+
+// import React from "react";
+// import "./App.scss";
+// import HomeRoute from "routes/HomeRoute";
+// import photos from "./mocks/photos";
+// import topics from "./mocks/topics";
+// import PhotoDetailsModal from "routes/PhotoDetailsModal";
+// import useApplicationData, { ACTIONS } from "hooks/useApplicationData";
+
+// const App = () => {
+//   const {
+//     state, // This includes isModalOpen, photoSelected, favorites
+//     toggleFavorite,
+//     onPhotoClick,
+//     closeModal,
+//     dispatch // This is the function to dispatch actions
+//   } = useApplicationData();
+
+//   const { isModalOpen, photoSelected, favorites } = state;
+
+//   return (
+//     <div className="App">
+//       <HomeRoute
+//         photos={photos}
+//         topics={topics}
+//         onPhotoClick={onPhotoClick}
+//         favorites={favorites}
+//         toggleFavorite={toggleFavorite}
+//       />
+//       {isModalOpen && (
+//         <PhotoDetailsModal
+//           closeModal={closeModal}
+//           photoSelected={photoSelected}
+//           toggleFavorite={(id) =>
+//             dispatch({ type: ACTIONS.TOGGLE_FAVORITE, payload: { id } })
+//           }
+//           favorites={favorites}
+//         />
+//       )}
+//     </div>
+//   );
+// };
+
+// export default App;
