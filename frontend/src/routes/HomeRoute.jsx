@@ -9,11 +9,16 @@ const HomeRoute = ({
   onPhotoClick,
   toggleFavorite,
   favorites,
+  getPhotosByTopic,
 }) => {
   //displays top navigation and list of photos
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} isFavPhotoExist={favorites.length > 0} />
+      <TopNavigation
+        topics={topics}
+        isFavPhotoExist={favorites.length > 0}
+        getPhotosByTopic={getPhotosByTopic}
+      />
       <PhotoList
         photos={photos}
         onPhotoClick={onPhotoClick}
