@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import HomeRoute from "routes/HomeRoute";
-import photos from "./mocks/photos";
+//import photos from "./mocks/photos";
 import topics from "./mocks/topics";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import useApplicationData from "hooks/useApplicationData";
@@ -21,7 +21,7 @@ const App = () => {
     } = useApplicationData();
 
 
-  const {isModalOpen, photoSelected, favorites} = state;
+  const {isModalOpen, photoSelected, favorites, photos} = state;
  
   return (
     <div className="App">
