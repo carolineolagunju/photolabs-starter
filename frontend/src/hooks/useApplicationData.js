@@ -1,5 +1,4 @@
 import { useReducer, useEffect } from "react";
-///import photos from "../mocks/photos";
 
 //default states
 const defaultState = {
@@ -16,12 +15,17 @@ const ACTIONS = {
   TOGGLE_FAVORITE: "TOGGLE_FAVORITE",
   ON_PHOTO_CLICK: "ON_TOGGLE_FAVORITE",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
-  SET_TOPIC_DATA: "SET_TOPIC_DATA"
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
 };
 
 //reducer function
 const reducer = (state, action) => {
-  //Set photos state to pictures fetched
+  //set topics state to topics fetched from api
+  if (action.type === ACTIONS.SET_TOPIC_DATA) {
+    return { ...state, topics: action.payload };
+  }
+
+  //Set photos state to pictures fetched from api
   if (action.type === ACTIONS.SET_PHOTO_DATA) {
     return { ...state, photos: action.payload };
   }
@@ -58,13 +62,20 @@ const reducer = (state, action) => {
   );
 };
 
-
 const useApplicationData = () => {
   //using useReducer to set state
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  //fetches topics from api and dispatch the topics as payload to function reducer
+  useEffect(() => {
+    fetch("/api/topics")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      });
+  }, []);
 
-  //This displays the pictures on the home page
+  //fetches photos and dispatch the photos as a payload to function reducer
   useEffect(() => {
     fetch("/api/photos")
       .then((res) => res.json())
