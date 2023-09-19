@@ -3,10 +3,10 @@ import "../styles/TopicListItem.scss";
 
 //List of photo topics
 const TopicListItem = (props) => {
-  const { slug, title } = props;
+  const { title, getPhotosByTopic } = props;
   return (
     <div className="topic-list__item">
-      <span>{title}</span>
+      <span onClick={getPhotosByTopic}>{title}</span>
     </div>
   );
 };
