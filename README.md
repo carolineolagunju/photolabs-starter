@@ -1,7 +1,4 @@
 # react-PhotoLabs Project
-
-Project Screenshot
-
 PhotoLabs is a web application that provides a platform for users to explore a diverse collection of high-quality photographs. Users can interact with the photos by viewing details, enlarging images, exploring related images, and marking their favorites. Additionally, users have the option to filter photos by topics of interest.
 
 # Features
