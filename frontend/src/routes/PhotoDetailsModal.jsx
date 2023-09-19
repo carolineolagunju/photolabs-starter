@@ -1,11 +1,10 @@
 import React from "react";
-
 import "../styles/PhotoDetailsModal.scss";
 import closeSymbol from "../assets/closeSymbol.svg";
 import PhotoList from "components/PhotoList";
 import PhotoFavButton from "components/PhotoFavButton";
 
-//function that handles items to be displayed on the modal once a picture is clicked
+//component that handles items to be displayed on the modal once a picture is clicked
 const PhotoDetailsModal = ({
   closeModal,
   photoSelected,
@@ -42,7 +41,6 @@ const PhotoDetailsModal = ({
             </div>
           </div>
         </div>
-
 
         <h3 className="photo-details-modal__header">Similar Photos</h3>
         <div className="photo-details-modal__images">

@@ -6,7 +6,11 @@ import TopicListItem from "./TopicListItem";
 const TopicList = (props) => {
   const topicData = props.topics.map((topic) => {
     return (
-      <TopicListItem slug={topic.slug} title={topic.title} key={topic.id} />
+      <TopicListItem
+        title={topic.title}
+        key={topic.id}
+        getPhotosByTopic={() => props.getPhotosByTopic(topic.id)}
+      />
     );
   });
 

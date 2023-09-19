@@ -7,7 +7,7 @@ const defaultState = {
   favorites: [],
   photos: [],
   topics: [],
-  topic: [],
+  topicPhotos: [],
 };
 
 //actions
@@ -22,10 +22,9 @@ const ACTIONS = {
 
 //reducer function
 const reducer = (state, action) => {
-  //fetch different image categories when users
-  //click on specific photo topics in the top navigation
+  //set each topic state to photos fetched from api
   if (action.type === ACTIONS.GET_PHOTOS_BY_TOPICS) {
-    return { ...state, topic: action.payload };
+    return { ...state, topicPhotos: action.payload };
   }
 
   //set topics state to topics fetched from api
@@ -49,9 +48,10 @@ const reducer = (state, action) => {
     );
     return { ...state, isModalOpen: true, photoSelected: selectedPhoto };
   }
+
   //set favorites state to the returned array
   //this loigc is used to control the favIcon. when the favIcon is deselected, the logic removes the id of
-  //that picture from the favorites array  else it adds it to the favorites array
+  //that photo from the favorites array  else it adds it to the favorites array
   if (action.type === ACTIONS.TOGGLE_FAVORITE) {
     if (state.favorites.includes(action.payload.id)) {
       return {
@@ -76,14 +76,19 @@ const useApplicationData = () => {
 
   //fetch photos by topics
   const getPhotosByTopic = (id) => {
-    fetch(`/api/topics/photos/${id}`)
-      .then((res) => res.json())
+    return fetch(`/api/topics/photos/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error fetching photos for topic ${id}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data });
       })
       .catch((error) => {
-        new Error(`Error fetching photos for topic${id}: ${error}`);
-        return [];
+        console.error(`Error fetching photos for topic${id}:`, error);
+        return []; // Return an empty array or handle the error as appropriate for your application
       });
   };
 
