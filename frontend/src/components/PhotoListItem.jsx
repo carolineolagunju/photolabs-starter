@@ -1,15 +1,14 @@
 import React from "react";
-
 import "../styles/PhotoListItem.scss";
 import "../styles/PhotoDetailsModal.scss";
 import PhotoFavButton from "./PhotoFavButton";
-
 
 //renders list of photos
 const PhotoListItem = (props) => {
   return (
     <div className="photo-list__item">
       <div>
+        {/* includes the FavButton at the top left corner of the photo */}
         <PhotoFavButton
           toggleFavorite={props.toggleFavorite}
           id={props.photo.id}
