@@ -7,6 +7,7 @@ const defaultState = {
   favorites: [],
   photos: [],
   topics: [],
+  topic: [],
 };
 
 //actions
@@ -16,10 +17,17 @@ const ACTIONS = {
   ON_PHOTO_CLICK: "ON_TOGGLE_FAVORITE",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
 };
 
 //reducer function
 const reducer = (state, action) => {
+  //fetch different image categories when users
+  //click on specific photo topics in the top navigation
+  if (action.type === ACTIONS.GET_PHOTOS_BY_TOPICS) {
+    return { ...state, topic: action.payload };
+  }
+
   //set topics state to topics fetched from api
   if (action.type === ACTIONS.SET_TOPIC_DATA) {
     return { ...state, topics: action.payload };
@@ -66,6 +74,19 @@ const useApplicationData = () => {
   //using useReducer to set state
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  //fetch photos by topics
+  const getPhotosByTopic = (id) => {
+    fetch(`/api/topics/photos/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data });
+      })
+      .catch((error) => {
+        new Error(`Error fetching photos for topic${id}: ${error}`);
+        return [];
+      });
+  };
+
   //fetches topics from api and dispatch the topics as payload to function reducer
   useEffect(() => {
     fetch("/api/topics")
@@ -104,6 +125,7 @@ const useApplicationData = () => {
     toggleFavorite,
     onPhotoClick,
     closeModal,
+    getPhotosByTopic,
   };
 };
 
