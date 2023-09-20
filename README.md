@@ -11,12 +11,12 @@ PhotoLabs is a web application that provides a platform for users to explore a d
 
 
 # Screenshots
-|![""](/doc/homepage.png)
+|![""](/docs/homepage.png)
 |:--:|
 |Home Page|
 
 
-|!["](/doc/travel.png)
+|!["](/docs/travel.png)
 |:--:|
 |Travel Topic|
 
