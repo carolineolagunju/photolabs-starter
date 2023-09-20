@@ -11,48 +11,48 @@ PhotoLabs is a web application that provides a platform for users to explore a d
 
 
 # Screenshots
-|![""](/pic/homepage.png)
+|![""](/doc/homepage.png)
 |:--:|
 |Home Page|
 
 
-|!["](/pic/travel.png)
+|!["](/doc/travel.png)
 |:--:|
 |Travel Topic|
 
 
-|![""](/pic/fashion.png)
+|![""](/docs/fashion.png)
 |:--:|
 |Fashion Topic|
 
 
-|![""](/pic/animal.png)
+|![""](/docs/animal.png)
 |:--:|
 |Animal Topic|
 
 
-|![""](/pic/nature.png)
+|![""](/docs/nature.png)
 |:--:|
 |Nature Topic|
 
 
-|!["](/pic/people%20topic%20photos.png)
+|!["](/docs/people-topic-photos.png)
 |:--:|
 |People Topic|
 
 
 
-|!["](/pic/liked.png)
+|!["](/docs/liked.png)
 |:--:|
 |Favorite pictures|
 
 
-|!["](/pic/full.png)
+|!["](/docs/full.png)
 |:--:|
 |Full Image|
 
 
-|!["](/pic/similar%20photos.png)
+|!["](/docs/similar-photos.png)
 |:--:|
 |Full Image|
 
