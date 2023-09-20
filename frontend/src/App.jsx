@@ -5,22 +5,27 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import useApplicationData from "hooks/useApplicationData";
 
 const App = () => {
-  const { state, toggleFavorite, onPhotoClick, closeModal, getPhotosByTopic } =
-    useApplicationData();
+  const {
+    state,
+    toggleFavorite,
+    onPhotoClick,
+    closeModal,
+    getPhotosByTopic,
+    getAllPhotos,
+  } = useApplicationData();
 
-  const { isModalOpen, photoSelected, favorites, photos, topics, topicPhotos } =
-    state;
+  const { isModalOpen, photoSelected, favorites, photos, topics } = state;
 
   return (
     <div className="App">
-      {/* renders photos conditionally */}
       <HomeRoute
-        photos={topicPhotos.length > 0 ? topicPhotos : photos}
+        photos={photos}
         topics={topics}
         onPhotoClick={onPhotoClick}
         favorites={favorites}
         toggleFavorite={toggleFavorite}
         getPhotosByTopic={getPhotosByTopic}
+        getAllPhotos={getAllPhotos}
       />
 
       {isModalOpen && (

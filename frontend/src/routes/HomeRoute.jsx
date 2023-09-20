@@ -10,6 +10,7 @@ const HomeRoute = ({
   toggleFavorite,
   favorites,
   getPhotosByTopic,
+  getAllPhotos,
 }) => {
   //displays top navigation and list of photos
   return (
@@ -18,6 +19,7 @@ const HomeRoute = ({
         topics={topics}
         isFavPhotoExist={favorites.length > 0}
         getPhotosByTopic={getPhotosByTopic}
+        getAllPhotos={getAllPhotos}
       />
       <PhotoList
         photos={photos}

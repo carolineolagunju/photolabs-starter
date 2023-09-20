@@ -7,7 +7,6 @@ const defaultState = {
   favorites: [],
   photos: [],
   topics: [],
-  topicPhotos: [],
 };
 
 //actions
@@ -24,7 +23,7 @@ const ACTIONS = {
 const reducer = (state, action) => {
   //set each topic state to photos fetched from api
   if (action.type === ACTIONS.GET_PHOTOS_BY_TOPICS) {
-    return { ...state, topicPhotos: action.payload };
+    return { ...state, photos: action.payload };
   }
 
   //set topics state to topics fetched from api
@@ -84,31 +83,26 @@ const useApplicationData = () => {
         return res.json();
       })
       .then((data) => {
-        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data });
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
       })
       .catch((error) => {
         console.error(`Error fetching photos for topic${id}:`, error);
-        return []; // Return an empty array or handle the error as appropriate for your application
+        return [];
       });
   };
 
-  //fetches topics from api and dispatch the topics as payload to function reducer
-  useEffect(() => {
-    fetch("/api/topics")
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
-      });
-  }, []);
-
-  //fetches photos and dispatch the photos as a payload to function reducer
-  useEffect(() => {
+  //fetches all photos when photolabs is clicked
+  const getAllPhotos = () => {
     fetch("/api/photos")
       .then((res) => res.json())
       .then((data) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error(`Error fetching photos:`, error);
+        return [];
       });
-  }, []);
+  };
 
   //function to trigger when favorite is selected and deselected
   const toggleFavorite = (id) => {
@@ -125,12 +119,27 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.CLOSE_MODAL });
   };
 
+  //fetches topics from api and dispatch the topics as payload to function reducer
+  useEffect(() => {
+    fetch("/api/topics")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      });
+  }, []);
+
+  //fetches photos and dispatch the photos as a payload to function reducer
+  useEffect(() => {
+    getAllPhotos();
+  }, []);
+
   return {
     state,
     toggleFavorite,
     onPhotoClick,
     closeModal,
     getPhotosByTopic,
+    getAllPhotos,
   };
 };
 
