@@ -2,3 +2,18 @@
   max-width: 1200px;
   margin: auto;
 }
+
+.off i {
+  filter: grayscale(100%);
+}
+
+i {
+  font-style: normal;
+}
+
+.App.dark,
+.App.dark button {
+  background: #222;
+  border-color: white;
+  color: white;
+}

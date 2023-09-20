@@ -16,7 +16,11 @@ const TopNavigation = ({
         PhotoLabs
       </span>
       <TopicList topics={topics} getPhotosByTopic={getPhotosByTopic} />
+      <div>
+
       <FavBadge isFavPhotoExist={isFavPhotoExist} />
+      <span className="light-switch">💡</span>
+      </div>
     </div>
   );
 };
